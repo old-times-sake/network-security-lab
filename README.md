@@ -1,31 +1,27 @@
-Lab 1: Network Firewall Configuration & Verification (Windows/Linux)
-Project Overview
-This laboratory focuses on the practical implementation of network security policies using stateful and stateless firewalls. The project covers rule creation, administrative automation via CLI, and traffic observability through system logs on both Windows and Linux platforms.
-Authors: Maciej Borysiewicz, Mikołaj Zarzeczny 
-Key Technical Objectives
-•	Policy Implementation: Deploying "explicit block" rules for specific services (TCP/80).
-•	Automation: Comparing GUI-based configuration with PowerShell scripting for reproducible security policies.
-•	Observability: Utilizing Event Viewer (Windows) and UFW status (Linux) to audit firewall changes.
-•	Validation: Performing positive and negative connectivity tests using an Apache HTTP server.
-Technical Stack
-Platform	Tools & Services
-Windows	Windows Defender Firewall (WFAS), PowerShell, Event Viewer (ID 2097) 
-Linux	UFW (Uncomplicated Firewall) 
-Services	Apache HTTP Server (httpd) 
-Laboratory Workflow
-1. Windows Firewall Configuration
-•	GUI Method: Used the "New Inbound Rule Wizard" to block incoming traffic on TCP Port 80.
-•	CLI Method: Executed the New-NetFirewallRule command in PowerShell to automate the block policy.
-•	Verification: Confirmed rule persistence and priority within the WFAS console.
-2. Linux Firewall Management
-•	Activation: Enabled UFW to transition from inactive to active state.
-•	Rule Setup: Implemented an "explicit allow" policy for administrative traffic:
-o	SSH (22/tcp) 
-o	RDP (3389/tcp) 
-3. Auditing & Logging
-•	Analyzed Event ID 2097 in the Windows Firewall channel to verify that new rules were successfully parsed and added to the exception list.
-4. Testing & Validation
-•	Initial State: Verified that the Apache server was reachable ("It works!") before applying blocks.
-•	Policy Enforcement: Confirmed that firewall rules effectively dropped traffic to port 80 despite the application service being operational.
-Conclusion
-The lab demonstrates that while GUI tools are effective for visual verification, CLI tools (PowerShell/UFW) provide the automation necessary for consistent security posture across multiple endpoints. Proper logging remains the cornerstone of network observability and incident response.
+# Lab 1: Network Firewall Configuration & Verification (Windows/Linux)
+
+## Authors
+* old-times-sake
+
+## Project Overview
+This project documents the practical implementation of network security policies using stateful and stateless firewalls on Windows and Linux platforms. The lab focuses on service blocking, administrative automation, and network observability through system logs.
+
+## Technical Implementation
+
+### Windows Environment
+**GUI Configuration**: Utilized Windows Defender Firewall with Advanced Security (WFAS) to create an inbound rule named `Blokada_HTTP_80`.
+**Service Control**: Implemented an explicit block for all incoming traffic on **TCP Port 80**.
+**PowerShell Automation**: Automated the deployment of the block policy using the `New-NetFirewallRule` command.
+**Auditing**: Verified rule enforcement by monitoring **Event ID 2097** in the Windows Event Viewer.
+
+### Linux Environment
+**Firewall Activation**: Configured the Uncomplicated Firewall (UFW), transitioning the status from inactive to active.
+**Access Control**: Defined "explicit allow" rules for administrative services, specifically permitting **SSH (22/tcp)** and **RDP (3389/tcp)** traffic.
+
+## Testing & Validation
+**Initial State**: Verified that the Apache HTTP server was operational and reachable, displaying the "It works!" status.
+**Rule Verification**: Conducted connectivity tests to ensure that the firewall successfully dropped packets on port 80 while the application service remained active.
+**Syntax Checks**: Performed pre-deployment validation using `httpd.exe -t` to ensure application stability before testing firewall rules.
+
+## Conclusion
+The lab demonstrates the efficacy of both graphical and command-line tools in managing network security perimeters. By utilizing persistent configurations and detailed logging, the environment ensures high observability and a reduced attack surface.
